@@ -22,7 +22,6 @@ import java.util.Arrays;
 @Component
 @Slf4j
 public class LoggingAspectAdvice {
-
     private static final String DEV = "DEV";
     private final Environment env;
 

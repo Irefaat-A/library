@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "v1/apocalypse/survivor", produces = MediaType.APPLICATION_JSON_VALUE, consumes = {MediaType.APPLICATION_JSON_VALUE})
 public class SurvivorController {
-
     private final SurvivorService survivorService;
     public SurvivorController(final SurvivorService survivorService) {
         this.survivorService = survivorService;

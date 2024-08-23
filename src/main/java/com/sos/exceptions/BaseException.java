@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 
 @Getter
 public class BaseException extends RuntimeException {
-
     private final HttpStatus status;
     private final List<String> reasons;
 

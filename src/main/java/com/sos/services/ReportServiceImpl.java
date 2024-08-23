@@ -29,7 +29,6 @@ public class ReportServiceImpl implements ReportService{
 
     @Override
     public ApiResponse getSurvivorSummary(final boolean infected) {
-//        TODO handle when no survivors in db.
         long totalSurvivors = this.survivorRepository.count();
         Optional<List<Survivor>> survivors = this.survivorRepository.findAllSurvivorsByInfectionState(infected);
 

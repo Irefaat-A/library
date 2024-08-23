@@ -82,6 +82,7 @@ public class Survivor {
                 ));
         }
     }
+
     public void addContaminationReporter(final Long reportId) {
         if(this.contaminationReport == null){
             this.contaminationReport = new ArrayList<>();

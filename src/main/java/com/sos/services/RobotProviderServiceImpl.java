@@ -25,8 +25,6 @@ public class RobotProviderServiceImpl implements RobotProviderService{
     @Value("${robot.provider.url}")
     private String robotProviderUrl;
 
-    public RobotProviderServiceImpl() {}
-
     @Override
     public ApiResponse allRobots() {
         ResponseEntity<RobotInformation[]> exchange = restTemplate.exchange(
