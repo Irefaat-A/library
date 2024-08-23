@@ -22,7 +22,7 @@ public class SurvivorRepositoryTest{
     public void beforeEach() {
         survivorRepository.save(new Survivor(
                 "PPP",
-                (byte) 35,
+                 35,
                 "Female",
                 "ID111",
                 "2222",
@@ -33,7 +33,7 @@ public class SurvivorRepositoryTest{
     public void createSurvivor(){
         Survivor newSurvivor = survivorRepository.save(new Survivor(
                 "NNN",
-                (byte) 2,
+                 2,
                 "Male",
                 "ID7897",
                 "12312",
@@ -41,7 +41,7 @@ public class SurvivorRepositoryTest{
 
         assertThat(newSurvivor, hasProperty("id", equalTo(7L)));
         assertThat(newSurvivor, hasProperty("name", equalTo("NNN")));
-        assertThat(newSurvivor, hasProperty("age", equalTo((byte)2)));
+        assertThat(newSurvivor, hasProperty("age", equalTo(2)));
         assertThat(newSurvivor, hasProperty("identity", equalTo("ID7897")));
     }
 
@@ -49,13 +49,13 @@ public class SurvivorRepositoryTest{
     public void findMatchingSurvivor(){
         Optional<Survivor> survivorResult = survivorRepository.findByNameAndAgeAndIdentity(
                 "PPP",
-                (byte) 35,
+                 35,
                 "ID111");
 
         assertThat(survivorResult.isPresent(), is(true));
         Survivor survivor = survivorResult.get();
         assertThat(survivor, hasProperty("name", equalTo("PPP")));
-        assertThat(survivor, hasProperty("age", equalTo((byte)35)));
+        assertThat(survivor, hasProperty("age", equalTo(35)));
         assertThat(survivor, hasProperty("identity", equalTo("ID111")));
     }
 
@@ -63,7 +63,7 @@ public class SurvivorRepositoryTest{
     public void nonMatchingSurvivor(){
         Optional<Survivor> survivor = survivorRepository.findByNameAndAgeAndIdentity(
                 "LLL",
-                (byte) 37,
+                 37,
                 "ID221");
 
         assertThat(survivor.isPresent(), is(false));
@@ -79,7 +79,7 @@ public class SurvivorRepositoryTest{
         assertThat(survivorResult.isPresent(), is(true));
         Survivor survivor = survivorResult.get();
         assertThat(survivor, hasProperty("name", equalTo("PPP")));
-        assertThat(survivor, hasProperty("age", equalTo((byte)35)));
+        assertThat(survivor, hasProperty("age", equalTo(35)));
         assertThat(survivor, hasProperty("identity", equalTo("ID111")));
     }
 
@@ -105,7 +105,7 @@ public class SurvivorRepositoryTest{
     public void findAllInfectedSurvivorsWithResults(){
         Survivor newSurvivor = new Survivor(
                 "DDD",
-                (byte) 19,
+                 19,
                 "Male",
                 "ID88",
                 "323",
@@ -117,7 +117,7 @@ public class SurvivorRepositoryTest{
         Optional<List<Survivor>> allSurvivorsByInfectionState = survivorRepository.findAllSurvivorsByInfectionState(true);
         Survivor infectedSurvivor = allSurvivorsByInfectionState.get().get(0);
         assertThat(infectedSurvivor, hasProperty("name", equalTo("DDD")));
-        assertThat(infectedSurvivor, hasProperty("age", equalTo((byte)19)));
+        assertThat(infectedSurvivor, hasProperty("age", equalTo(19)));
         assertThat(infectedSurvivor, hasProperty("identity", equalTo("ID88")));
     }
 
@@ -129,7 +129,7 @@ public class SurvivorRepositoryTest{
         Survivor survivor = survivors.get(0);
         assertThat(survivors.size(), is(1));
         assertThat(survivor, hasProperty("name", equalTo("PPP")));
-        assertThat(survivor, hasProperty("age", equalTo((byte)35)));
+        assertThat(survivor, hasProperty("age", equalTo(35)));
         assertThat(survivor, hasProperty("identity", equalTo("ID111")));
     }
 }

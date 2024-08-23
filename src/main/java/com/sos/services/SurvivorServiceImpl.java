@@ -116,9 +116,10 @@ public class SurvivorServiceImpl implements SurvivorService {
             throw new BaseException(HttpStatus.NOT_FOUND, String.format("Survivor with name %s not found." , reportContaminateRequest.getAccused().getName()));
         }
 
+
         Survivor survivor = accusedSurvivor.get();
+        reportContaminateRequest.getReporterIds().forEach(survivor::addContaminationReporter);
         if (isMaxCounterReached(survivor.getAccusedCount(), reportContaminateRequest.totalReporters())) {
-            reportContaminateRequest.getReporterIds().forEach(survivor::addContaminationReporter);
             survivor.setInfected(true);
             this.survivorRepository.save(survivor);
 
@@ -130,11 +131,11 @@ public class SurvivorServiceImpl implements SurvivorService {
                     .gender(survivor.getGender().getDescription())
                     .identity(survivor.getIdentity())
                     .isInfected(survivor.isInfected())
+                    .accusedCount((byte) survivor.getContaminationReport().size())
                     .build(),
                     "Survivor infected please evacuate immediately!");
         }
 
-        reportContaminateRequest.getReporterIds().forEach(survivor::addContaminationReporter);
         this.survivorRepository.save(survivor);
 
         return new ApiSuccessfulResponse(ReportContaminationResponse
@@ -151,6 +152,6 @@ public class SurvivorServiceImpl implements SurvivorService {
     }
 
     private static boolean isMaxCounterReached(int numberOfAccusations, int numberOfReporters) {
-        return numberOfAccusations >= MAX_COUNT || numberOfReporters >= MAX_COUNT;
+        return numberOfAccusations == MAX_COUNT || numberOfReporters == MAX_COUNT;
     }
 }
