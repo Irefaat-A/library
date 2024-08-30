@@ -5,6 +5,7 @@ import com.sos.models.responses.SurvivorSummaryResponse;
 import com.sos.models.responses.api.ApiResponse;
 import com.sos.models.responses.api.ApiSuccessfulResponse;
 import com.sos.repositories.SurvivorRepository;
+import com.sos.utils.PercentageCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,30 +29,29 @@ public class ReportServiceImpl implements ReportService{
     }
 
     @Override
-    public ApiResponse getSurvivorSummary(final boolean infected) {
-        long totalSurvivors = this.survivorRepository.count();
-        Optional<List<Survivor>> survivors = this.survivorRepository.findAllSurvivorsByInfectionState(infected);
+    public ApiResponse getSurvivorSummary(final boolean isInfected) {
+        long totalNumberOfSurvivors = this.survivorRepository.count();
+        Optional<List<Survivor>> searchResultsOfSurvivors = this.survivorRepository.findAllSurvivorsByInfectionState(isInfected);
+        List<Survivor> allSurvivors = searchResultsOfSurvivors.get();
 
-        List<Survivor> allSurvivors = survivors.get();
-        int searchedSurvivorsCount = survivors.get().isEmpty()? 0 : allSurvivors.size();
-        float normalPercentage = allSurvivors.isEmpty()? 0 : (float) searchedSurvivorsCount/totalSurvivors;
-        normalPercentage *= 100;
+        int totalNumberOfSearchResults = allSurvivors.isEmpty()? 0 : allSurvivors.size();
+        float percentage = PercentageCalculator.calculatePercentage(totalNumberOfSearchResults, totalNumberOfSurvivors);
 
         SurvivorSummaryResponse survivorSummaryResponse = new SurvivorSummaryResponse();
-        survivorSummaryResponse.setTotalSurvivors(totalSurvivors);
-        int diff = Long.valueOf(totalSurvivors).intValue() - searchedSurvivorsCount;
-        if (infected) {
+        survivorSummaryResponse.setTotalSurvivors(totalNumberOfSurvivors);
+        int diff = Long.valueOf(totalNumberOfSurvivors).intValue() - totalNumberOfSearchResults;
+        if (isInfected) {
             survivorSummaryResponse.setTotalNonInfectedSurvivors(diff);
             survivorSummaryResponse.setInfectSurvivors(allSurvivors);
-            survivorSummaryResponse.setTotalInfectedSurvivors(searchedSurvivorsCount);
-            survivorSummaryResponse.setInfectedSurvivorsPercentage(normalPercentage);
+            survivorSummaryResponse.setTotalInfectedSurvivors(totalNumberOfSearchResults);
+            survivorSummaryResponse.setInfectedSurvivorsPercentage(percentage);
         } else {
             survivorSummaryResponse.setTotalInfectedSurvivors(diff);
             survivorSummaryResponse.setNonInfectSurvivors(allSurvivors);
-            survivorSummaryResponse.setTotalNonInfectedSurvivors(searchedSurvivorsCount);
-            survivorSummaryResponse.setNonInfectedSurvivorsPercentage(normalPercentage);
+            survivorSummaryResponse.setTotalNonInfectedSurvivors(totalNumberOfSearchResults);
+            survivorSummaryResponse.setNonInfectedSurvivorsPercentage(percentage);
         }
 
-        return new ApiSuccessfulResponse(survivorSummaryResponse, "Successfully produced survivors report");
+        return new ApiSuccessfulResponse(survivorSummaryResponse, "Successfully produced searchResultsOfSurvivors report");
     }
 }

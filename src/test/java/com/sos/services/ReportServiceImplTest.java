@@ -42,7 +42,7 @@ public class ReportServiceImplTest {
         HashMap map = (HashMap) hashMap.getOrDefault("data", null);
 
         MatcherAssert.assertThat(map.getOrDefault("totalSurvivors",0L), equalTo(0L));
-        MatcherAssert.assertThat(survivorSummary, hasProperty("message", equalTo("Successfully produced survivors report")));
+        MatcherAssert.assertThat(survivorSummary, hasProperty("message", equalTo("Successfully produced searchResultsOfSurvivors report")));
     }
 
     @Test
@@ -75,7 +75,7 @@ public class ReportServiceImplTest {
         MatcherAssert.assertThat(map.getOrDefault("totalSurvivors",0L), equalTo(1L));
         MatcherAssert.assertThat(map.getOrDefault("totalInfectedSurvivors",0L), equalTo(1));
         MatcherAssert.assertThat(map.getOrDefault("infectedSurvivorsPercentage",0L), equalTo(100.0F));
-        MatcherAssert.assertThat(survivorSummary, hasProperty("message", equalTo("Successfully produced survivors report")));
+        MatcherAssert.assertThat(survivorSummary, hasProperty("message", equalTo("Successfully produced searchResultsOfSurvivors report")));
     }
 
     @Test
@@ -109,6 +109,6 @@ public class ReportServiceImplTest {
         MatcherAssert.assertThat(map.getOrDefault("totalSurvivors",0L), equalTo(1L));
         MatcherAssert.assertThat(map.getOrDefault("totalNonInfectedSurvivors",0L), equalTo(1));
         MatcherAssert.assertThat(map.getOrDefault("nonInfectedSurvivorsPercentage",0L), equalTo(100.0F));
-        MatcherAssert.assertThat(survivorSummary, hasProperty("message", equalTo("Successfully produced survivors report")));
+        MatcherAssert.assertThat(survivorSummary, hasProperty("message", equalTo("Successfully produced searchResultsOfSurvivors report")));
     }
 }

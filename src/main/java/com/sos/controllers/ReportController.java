@@ -9,17 +9,15 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "v1/apocalypse/reports", produces = MediaType.APPLICATION_JSON_VALUE, consumes = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(value = "v1/apocalypse/reports", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ReportController {
     private final ReportService reportService;
 
-    @Autowired
     public ReportController(final ReportService reportService) {
         this.reportService = reportService;
     }
