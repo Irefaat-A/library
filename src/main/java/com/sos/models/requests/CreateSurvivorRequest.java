@@ -19,6 +19,8 @@ public class CreateSurvivorRequest {
     private String name;
     @NotNull(message = "Age field must not be empty")
     private int age;
+    //TODO IA:30 Aug 2024 Custom gender validation annotation instead of using enum.
+    //TODO IA:30 Aug 2024 Custom gender validator provide the flexibility of case insensitivity.
     @ValidGender()
     private String gender;
     @NotBlank(message = "Identity field must not be empty")
