@@ -71,7 +71,6 @@ Once you logged in you will be able to manage the data in the H2 db.
 ```
 In the project there is a docs folder that contains:
 
-1. Postman collection (You can import the postman collection into your postman workspace)
-2. Swaager UI nagivate to: http://localhost:8080/swagger-ui/index.html#/
+1. Swaager UI nagivate to: http://localhost:8080/swagger-ui/index.html#/
 
 ```
