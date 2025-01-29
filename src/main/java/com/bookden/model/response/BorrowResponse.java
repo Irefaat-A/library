@@ -13,6 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BorrowResponse{
+public class BorrowResponse extends ApiResponse{
     private List<BorrowView> books;
 }

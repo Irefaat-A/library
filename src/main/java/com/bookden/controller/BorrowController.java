@@ -2,6 +2,7 @@ package com.bookden.controller;
 
 import com.bookden.model.request.BorrowBookRequest;
 import com.bookden.model.request.ReturnBookRequest;
+import com.bookden.model.response.ApiResponse;
 import com.bookden.model.response.BorrowResponse;
 import com.bookden.service.BorrowService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,7 +31,7 @@ public class BorrowController {
                                 schema = @Schema(implementation = BorrowResponse.class))
             })})
     @PostMapping
-    public ResponseEntity<BorrowResponse> requestToBorrow(@RequestBody @Valid BorrowBookRequest borrowBookRequest) {
+    public ResponseEntity<ApiResponse> requestToBorrow(@RequestBody @Valid BorrowBookRequest borrowBookRequest) {
         BorrowResponse borrowResponse = borrowService.borrowBook(borrowBookRequest);
         return ResponseEntity.ok(borrowResponse);
     }
@@ -43,7 +44,7 @@ public class BorrowController {
                                 schema = @Schema(implementation = BorrowResponse.class))
             })})
     @PutMapping
-    public ResponseEntity<BorrowResponse> returnBook(@RequestBody @Valid ReturnBookRequest returnBookRequest) {
+    public ResponseEntity<ApiResponse> returnBook(@RequestBody @Valid ReturnBookRequest returnBookRequest) {
         BorrowResponse returnBookResponse = borrowService.returnBook(returnBookRequest);
         return ResponseEntity.ok(returnBookResponse);
     }

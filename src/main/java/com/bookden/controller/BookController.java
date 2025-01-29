@@ -3,6 +3,8 @@ package com.bookden.controller;
 import com.bookden.entity.Book;
 import com.bookden.model.request.AddBookRequest;
 import com.bookden.model.request.UpdateBookRequest;
+import com.bookden.model.response.ApiResponse;
+import com.bookden.model.response.ApiSuccessfulResponse;
 import com.bookden.service.BookService;
 import com.bookden.view.BookView;
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,8 +51,8 @@ public class BookController {
                             schema = @Schema(implementation = AddBookRequest.class))
             })})
     @PostMapping()
-    public ResponseEntity<BookView> addBookToLibrary(@RequestBody @Valid  AddBookRequest addBookRequest) {
-        return ResponseEntity.ok(bookService.addBook(addBookRequest));
+    public ResponseEntity<ApiResponse> addBookToLibrary(@RequestBody @Valid  AddBookRequest addBookRequest) {
+        return ResponseEntity.ok(new ApiSuccessfulResponse(bookService.addBook(addBookRequest)));
     }
 
     @Operation(summary = "Update book properties.")
@@ -61,8 +63,8 @@ public class BookController {
                             schema = @Schema(implementation = UpdateBookRequest.class))
             })})
     @PutMapping()
-    public ResponseEntity<BookView> updateBook(@RequestBody @Valid UpdateBookRequest updateBookRequest) {
-        return ResponseEntity.ok(bookService.updateBook(updateBookRequest));
+    public ResponseEntity<ApiResponse> updateBook(@RequestBody @Valid UpdateBookRequest updateBookRequest) {
+        return ResponseEntity.ok(new ApiSuccessfulResponse(bookService.updateBook(updateBookRequest)));
     }
 
     @Operation(summary = "Delete a book")
@@ -70,8 +72,8 @@ public class BookController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200",
                     description = "Delete book from online library.")})
     @DeleteMapping()
-    public ResponseEntity deleteBook(@RequestParam("id") long id) {
+    public ResponseEntity<ApiResponse> deleteBook(@RequestParam("id") long id) {
         bookService.delete(id);
-        return ResponseEntity.ok(HttpStatus.OK.getReasonPhrase());
+        return ResponseEntity.ok(new ApiSuccessfulResponse(HttpStatus.OK.getReasonPhrase()));
     }
 }

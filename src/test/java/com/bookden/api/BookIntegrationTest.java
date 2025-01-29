@@ -320,12 +320,16 @@ public class BookIntegrationTest {
                         .header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
-                        {
-                         "title": "Im a book",
-                         "author": "King",
-                         "category": "Adventure"
-                         }
-                        """));
+                {
+                    "status": "OK",
+                    "data": {
+                        "title": "Im a book",
+                        "author": "King",
+                        "category": "Adventure"
+                    },
+                    "message": ""
+                }
+                """));
     }
 
     @Test
@@ -401,9 +405,13 @@ public class BookIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                     {
-                        "title": "Cat house",
-                        "author": "Bony",
-                        "category": "Dance"
+                        "status": "OK",
+                        "data": {
+                            "title": "Cat house",
+                            "author": "Bony",
+                            "category": "Dance"
+                        },
+                        "message": ""
                     }
                     """
                 ));
